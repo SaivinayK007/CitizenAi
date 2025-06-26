@@ -1,0 +1,5 @@
+flask
+pymongo
+ibm-watsonx-ai==1.3.26
+ibm-cloud-sdk-core
+python-dotenv
