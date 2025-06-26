@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Dashboard – CitizenAI{% endblock %}
+{% block content %}
+<section class="dashboard-section">
+    <h2>Weekly Sentiment Summary</h2>
+    <ul>
+        <li>😊 Positive: {{ sentiments['Positive'] }}</li>
+        <li>😐 Neutral: {{ sentiments['Neutral'] }}</li>
+        <li>😟 Negative: {{ sentiments['Negative'] }}</li>
+    </ul>
+
+    <h2>Recent Citizen Issues</h2>
+    <ul>
+        {% for issue in recent_issues %}
+            <li>📌 {{ issue }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Feedback Records</h2>
+    {% if feedback_list %}
+        <ul class="chat-list">
+            {% for fb in feedback_list %}
+                <li class="chat-entry" onclick="this.classList.toggle('expanded')">
+                    <div class="chat-header">
+                        <span class="question-text">
+                            <strong>Feedback:</strong> {{ fb['feedback'][:60] }}{% if fb['feedback']|length > 60 %}...{% endif %}
+                        </span>
+                        <span class="toggle-arrow">▾</span>
+                    </div>
+                    <div class="chat-response">
+                        <p><strong>Sentiment:</strong> {{ fb['sentiment'] }}</p>
+                        <p><strong>Full Feedback:</strong> {{ fb['feedback'] }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No feedback submitted yet.</p>
+    {% endif %}
+</section>
+{% endblock %}

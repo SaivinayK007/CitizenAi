@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Chat – CitizenAI{% endblock %}
+{% block content %}
+<section class="chat-section">
+    <h2>Ask the Assistant</h2>
+    <form method="POST" action="{{ url_for('ask_question') }}">
+        <input type="text" name="question" placeholder="Enter your question" required>
+        <button type="submit">Ask</button>
+    </form>
+    {% if question_response %}
+        <div class="response"><strong>Assistant:</strong> {{ question_response }}</div>
+    {% endif %}
+
+    <h2>Feedback Sentiment</h2>
+    <form method="POST" action="{{ url_for('submit_feedback') }}">
+        <textarea name="feedback" placeholder="Write your feedback here..." required></textarea>
+        <button type="submit">Analyze Sentiment</button>
+    </form>
+    {% if sentiment %}
+        <div class="response"><strong>Sentiment:</strong> {{ sentiment }}</div>
+    {% endif %}
+
+    <h2>Report a Concern</h2>
+    <form method="POST" action="{{ url_for('submit_concern') }}">
+        <textarea name="concern" placeholder="Describe your concern..." required></textarea>
+        <button type="submit">Submit Concern</button>
+    </form>
+    {% if concern_submitted %}
+        <div class="response">✅ Concern submitted successfully!</div>
+    {% endif %}
+
+<h3>Previous Interactions</h3>
+{% if chat_history %}
+    <ul class="chat-list">
+        {% for item in chat_history %}
+            <li class="chat-entry" onclick="this.classList.toggle('expanded')">
+                <div class="chat-header">
+                    <strong>You:</strong> {{ item['question'] }}
+                    <span class="toggle-arrow">▾</span>
+                </div>
+                <div class="chat-response">
+                    <strong>Assistant:</strong><br>{{ item['response'] }}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No previous chats found.</p>
+{% endif %}
+
+{% endblock %}

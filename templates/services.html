@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Services – CitizenAI{% endblock %}
+{% block content %}
+<section class="services">
+    <h2>What CitizenAI Can Do</h2>
+    <ul>
+        <li><strong>AI Chat Assistant:</strong> Ask questions and get instant answers using IBM Granite.</li>
+        <li><strong>Feedback Analysis:</strong> Submit feedback and get real-time sentiment analysis.</li>
+        <li><strong>Issue Reporting:</strong> Easily report civic problems or concerns.</li>
+        <li><strong>Insights Dashboard:</strong> Government teams can visualize public sentiment and issues.</li>
+    </ul>
+    <a href="{{ url_for('chat') }}" class="button">Try the Assistant</a>
+</section>
+{% endblock %}
